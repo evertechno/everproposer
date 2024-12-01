@@ -4,7 +4,6 @@ import pandas as pd
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from io import StringIO
 
 # Configure the API key securely from Streamlit's secrets
 genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
@@ -75,8 +74,8 @@ if csv_file is not None:
                 based on this information and include competitive insights.
             """
 
-            # Button to generate proposal for each client
-            if st.button(f"Generate Proposal for {client_name}"):
+            # Button to generate proposal for each client, with a unique key based on client index
+            if st.button(f"Generate Proposal for {client_name}", key=f"generate_{index}"):
                 try:
                     # Load and configure the Gemini model
                     model = genai.GenerativeModel('gemini-1.5-flash')
